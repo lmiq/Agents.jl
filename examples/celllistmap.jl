@@ -70,7 +70,9 @@ using CellListMap.PeriodicSystems
 #
 # ## Model initialization
 # We create the model with a keyword-accepting function as is recommended in Agents.jl.
-# The keywords here control number of particles and sizes.
+# The keywords here control number of particles and sizes. To activate the parallelization
+# of the computation of forces by CellListMap, start Julia 
+# [with multi-threading support](https://docs.julialang.org/en/v1/manual/multi-threading/#man-multithreading).
 function initialize_bouncing(;
     number_of_particles=10_000,
     sides=SVector(500.0, 500.0),
@@ -198,7 +200,7 @@ function simulate(model=nothing; nsteps=1_000, number_of_particles=10_000)
     end
     Agents.step!(model, nsteps)
 end
-# Which should be quite fast
+# Which should be quite fast:
 model = initialize_bouncing()
 @time simulate(model)
 
